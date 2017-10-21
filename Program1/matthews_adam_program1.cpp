@@ -5,6 +5,11 @@ CSCE-350
 Program 1
 **/
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+
 using namespace std;
 
 //This prints out up to the nth contents of array a
@@ -66,8 +71,19 @@ void quicksort(int *arr, int left, int right)
 
 int main() 
 {
+	std::ifstream file("test.txt");
+	std::vector<int> v;
+	int number;
+
+	while(file >> number)
+	{
+		v.push_back(number);
+	}		
+	
+	int* arr = &v[0];
+
 	//This needs to become ascii IO
-	int arr[8] = {110, 5, 10, 3, 22, 100, 1, 23};
+	//int arr[8] = {110, 5, 10, 3, 22, 100, 1, 23};
 	quicksort(arr, 0, (sizeof(arr)/sizeof(arr[0]))-1);
 	print(arr, (sizeof(arr)/sizeof(arr[0])));
 	return 0;

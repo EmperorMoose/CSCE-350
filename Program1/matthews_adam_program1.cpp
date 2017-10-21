@@ -2,18 +2,19 @@
 A. Pierce Matthews
 CSCE-350
 10/21/17
-Program 1
+Program 1 Part 1
 **/
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <ctime>
 
 using namespace std;
 
 //This prints out up to the nth contents of array a
-void print(int *a, int n)
+void print(float *a, int n)
 {
 	int i = 0;
 	while(i<n) 
@@ -24,15 +25,15 @@ void print(int *a, int n)
 }
 
 //This swaps two members of the array
-void swap(int i, int j, int *a)
+void swap(int i, int j, float *a)
 {
-	int temp = a[i];
+	float temp = a[i];
 	a[i] = a[j];
 	a[j] = temp;
 }
 
 //This is the actual sort method
-void quicksort(int *arr, int left, int right)
+void quicksort(float *arr, int left, int right)
 {
 	//This is the mid point in the array
 	//Formatted this way to prevent overflow as outlined "https://research.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html"
@@ -41,7 +42,7 @@ void quicksort(int *arr, int left, int right)
 
 	int i = left;
 	int j = right;
-	int pivot = arr[mid];
+	float pivot = arr[mid];
 
 	while(left<j || i<right)
 	{
@@ -69,22 +70,47 @@ void quicksort(int *arr, int left, int right)
 	}
 }
 
-int main() 
+int main(int argc, char* argv[]) 
 {
-	std::ifstream file("test.txt");
-	std::vector<int> v;
-	int number;
+	//This is for execution time in miliseconds
+	int start_c=clock();
+	
+	//This the the first argument, ie the input file
+	std::ifstream file(argv[1]);
 
+	std::vector<float> v;
+	//not sure what number exactly does, so preserving original line
+	//int number;
+	float number;
+
+	//This reads the file into a vector
 	while(file >> number)
 	{
 		v.push_back(number);
+		cout<<number;
 	}		
-	
-	int* arr = &v[0];
 
-	//This needs to become ascii IO
-	//int arr[8] = {110, 5, 10, 3, 22, 100, 1, 23};
+	//Copies the vector into an array to perserve the original vector
+	int s = v.size();
+	float arr[s];
+	std:copy(v.begin(), v.end(), arr);
+
+	//Print out the contents of the array
+	for(int i = 0; i<=s; i++)
+		cout<<arr[i]<< " ";
+
+	//Sort, print sorted array
 	quicksort(arr, 0, (sizeof(arr)/sizeof(arr[0]))-1);
 	print(arr, (sizeof(arr)/sizeof(arr[0])));
+	
+	//This is for file output
+	ofstream outputFile(argv[2]);
+	for(int i = 0; i<s; i++)
+		outputFile<<arr[i]<<" ";
+	outputFile.close();
+
+	int stop_c=clock();
+	cout << "Time: " << (stop_c-start_c)/double(CLOCKS_PER_SEC)*1000 << endl;
+
 	return 0;
 }

@@ -30,7 +30,8 @@ void swap(int i, int j, int *a)
 void quicksort(int *arr, int left, int right)
 {
 	//This is the mid point in the array
-	int mid = (left+right)/2;
+	//Formatted this way to prevent overflow as outlined "https://research.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html"
+	int mid = left + (right - left) / 2;
 	cout<<"QS:"<<left<<","<<right<<"\n";
 
 	int i = left;

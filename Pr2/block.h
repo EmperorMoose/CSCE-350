@@ -10,10 +10,14 @@
 
 class block{
 public:
-  bool isValid(std::string chain);
+  void block();
+  void isValid();
+  bool validity;
   void setHeader(std::string header);
   void setMerkle(std::string merkle);
   void setNonce(std::string);
+  void getHeader();
+  void getHash();
   void generateHash();
   std::string hexToString(std::string str);
   int hexCharToInt(char a);

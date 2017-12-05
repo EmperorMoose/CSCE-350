@@ -8,7 +8,11 @@
 #include <iostream>
 #include <algorithm>
 //This is the function file for the block class
-
+void block::block()
+{
+  generateHash();
+  isValid();
+}
 //This is a function from test.cpp
 int hexCharToInt(char a){
     if(a>='0' && a<='9')
@@ -33,16 +37,15 @@ std::string hexToString(std::string str){
 }
 //----------------------------------------------------------------------------//
 //Checks whether or not a chain is valid by looking at the first bit in the hash
-bool block::isValid(std::string chain)
+void block::isValid()
 {
-  std::string hash = picosha2::hash256_hex_string(hexToString(chain));
-  if(chain.at(0) ==  '0')
+  if(hash.at(0) ==  '0')
   {
-    return true;
+    validity = true;
   }
   else
   {
-    return false;
+    validity = false;
   }
 }
 
@@ -62,9 +65,18 @@ void block::setNonce(std::string nonce)
   nonce = nonce;
 }
 
+std::string block::getHeader()
+{
+  return header;
+}
 //Generates the hash value for this blockchain
 void blockchain::generateHash()
 {
   std::concat = header + merkle + nonce;
   hash = hash256_hex_string(hexToString(concat));
+}
+
+std::string block::getHash()
+{
+  return hash;
 }

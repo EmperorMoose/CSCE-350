@@ -1,0 +1,9 @@
+[{
+  "directory": "/home/moose/School/CSCE-350/350(C++)/Matthews_Adam_GCD",
+  "command": "/usr/bin/gcc -g -O0 -Wall -I. -I. -MG -MP -MT./Debug/main.c.o -MF./Debug/main.c.o.d -MM main.c",
+  "file": "/home/moose/School/CSCE-350/350(C++)/Matthews_Adam_GCD/main.c"
+ }, {
+  "directory": "/home/moose/School/CSCE-350/350(C++)/Matthews_Adam_GCD",
+  "command": "/usr/bin/gcc -c /home/moose/School/CSCE-350/350(C++)/Matthews_Adam_GCD/main.c -g -O0 -Wall -o ./Debug/main.c.o -I. -I.",
+  "file": "/home/moose/School/CSCE-350/350(C++)/Matthews_Adam_GCD/main.c"
+ }]

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="350(C++)" Database="" Version="10.0.0">
+  <Project Name="Matthews_Adam_GCD_Recursive" Path="Matthews_Adam_GCD/Matthews_Adam_GCD.project" Active="Yes"/>
+  <Project Name="Matthews_Adam_GCD" Path="Matthews_Adam_GCD/Matthews_Adam_GCD.project"/>
+  <Project Name="Matthews_Adam_GCD_Recursive" Path="Matthews_Adam_GCD_Recursive/Matthews_Adam_GCD_Recursive.project"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="Matthews_Adam_GCD_Recursive" ConfigName="Debug"/>
+      <Project Name="Matthews_Adam_GCD" ConfigName="Debug"/>
+      <Project Name="Matthews_Adam_GCD_Recursive" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="Matthews_Adam_GCD_Recursive" ConfigName="Release"/>
+      <Project Name="Matthews_Adam_GCD" ConfigName="Release"/>
+      <Project Name="Matthews_Adam_GCD_Recursive" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+//Default Constructor
 blockchain::blockchain()
 {
   chainValidity = false;
@@ -28,7 +29,10 @@ void blockchain::isChainValid()
     {
       if(block_2->getHeader() == block_3->getHash())
         chainValidity = true;
+      else
+        std::cout << "Chain 2 -3 is wrong";
     }
     else
+      std::cout << "Chain 1 -2 is wrong";
       chainValidity = false;
 }

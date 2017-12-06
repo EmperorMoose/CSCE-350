@@ -12,14 +12,39 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
+#include <iomanip>
 
+//This mines a new nonce. Takes in a string header and merkle
 std::string nonceMiner(std::string xhead, std::string xmerk)
 {
+  //Decalre vars
   bool found = false;
-  while(found = false)
+  int rando;
+  //Concat the head and merk for simplicity
+  std::string concat = xhead + xmerk;
+  std::string hash;
+  std:: string result;
+  //Looping condition
+  while(found == false)
   {
-    
+    //generate random integer and convert to hex string
+    rando = rand() % 99999999;
+    std::stringstream sstream;
+    sstream << std::hex << rand;
+    result = sstream.str();
+
+    //Add the nonce to the block
+    concat = concat + result;
+    hash = picosha2::hash256_hex_string(concat);
+    //check if the hash is valid
+    if(hash.at(0) == '0')
+    {
+      found = true;
+    }
   }
+  //Return the nonce
+  return result;
 }
 
 //generates a merkle root
@@ -55,11 +80,7 @@ std::string merkleGenerator(std::vector<std::string> transactionChain)
 
 int main(int argc, char* argv[])
 {
-  //Original contents of main preserved for clarity
-  //std::string hex_str = "000000000000000000ad6e90c0790e83760a9d13728c23474352a2c8c7a6e0eb";
-  //std::cout << picosha2::hash256_hex_string(hexToString(hex_str)) << std::endl;
-
-  //This block reads in from the file into a vector
+  //This block reads in from the bitcoin file into a vector
   std::ifstream file(argv[1]);
   std::vector<std::string> vecChain;
   std::string input;
@@ -76,7 +97,7 @@ int main(int argc, char* argv[])
   {
     transactionChain.push_back(input_2);
   }
-  //This is how object generation works
+
   //Generates the block objects
   block * block_1 = new block();
   block_1->setHeader(vecChain.at(0));
@@ -99,13 +120,6 @@ int main(int argc, char* argv[])
   block_3->generateHash();
   block_3->isValid();
 
-  //block_1->printBlock();
-  //block_2->printBlock();
-  //block_3->printBlock();
-  //Prints the vector. For testing.
-  //for (std::vector<std::string>::const_iterator i = vecChain.begin(); i != vecChain.end(); ++i)
-    //std::cout << *i << ' ';
-
   //Check weather or not each block is valid.
   if(!block_1->validity || !block_2->validity || !block_3->validity)
   {
@@ -113,14 +127,16 @@ int main(int argc, char* argv[])
     std::string merkle = merkleGenerator(transactionChain);
     std::cout << "A block is invalid. Merkle Root: " << merkle << "\n";
   }
+  //Decalre the chain and check validity
   blockchain * chain = new blockchain();
-  if(!chain->chainValidity)
+  if(chain->chainValidity == true)
   {
     //If not valid, print the merkle root
     std::string merkle = merkleGenerator(transactionChain);
     std::cout << "The chain is invalid. Merkle Root: " << merkle << "\n";
   }
   //If valid make new block
+  std::cout << "The chain is valid. New block is: \n";
   block * newBlock = new block();
   //make new header
   std::string newHeader = block_1->getHash();
@@ -132,7 +148,16 @@ int main(int argc, char* argv[])
   std::cout << newMerkle << " ";
   //Get nonce
   std::string newNonce = nonceMiner(newHeader, newMerkle);
-  newBlock->setNonce(newNonce);
-  std::cout << newNonce << " ";
+  //This formats the nonce to include leading zeros
+  if(newNonce.length() < 7)
+  {
+    std::string zeros;
+    int size = 8 - newNonce.length();
+    for(int i = 0; i< size; i++)
+      zeros += '0';
+    zeros = zeros + newNonce;
+    std::cout << zeros + "\n";
+    newBlock->setNonce(zeros);
+  }
   return 0;
 }

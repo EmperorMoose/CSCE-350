@@ -12,13 +12,29 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
+#include <iomanip>
 
 std::string nonceMiner(std::string xhead, std::string xmerk)
 {
   bool found = false;
+  int rando;
+  std::string concat = xhead + xmerk;
+  std::string hash;
   while(found = false)
   {
-    
+    //generate random integer and convert to hex string
+    rando = rand() % 99999999;
+    std::stringstream sstream;
+    sstream << std::hex << rand;
+    std::string result = sstream.str();
+
+    concat = concat + result;
+    hash = picosha2::hash256_hex_string(concat);
+    if(hash.at(0) == '0')
+    {
+      found = true;
+    }
   }
 }
 
@@ -114,7 +130,7 @@ int main(int argc, char* argv[])
     std::cout << "A block is invalid. Merkle Root: " << merkle << "\n";
   }
   blockchain * chain = new blockchain();
-  if(!chain->chainValidity)
+  if(chain->chainValidity == true)
   {
     //If not valid, print the merkle root
     std::string merkle = merkleGenerator(transactionChain);

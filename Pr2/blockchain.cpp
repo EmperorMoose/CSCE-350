@@ -8,26 +8,27 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
-
+blockchain::blockchain()
+{
+  chainValidity = false;
+}
 //Constructor
-void blockchain::blockchain(block::block block_1, block::block block_2, block::block block_3)
+blockchain::blockchain(block &block_1, block &block_2, block &block_3)
 {
   block_1 = block_1;
   block_2 = block_2;
   block_3 = block_3;
-  isValid();
+  isChainValid();
 }
 
 //Checks wether or not the chain is valid
-void blockchain::isValid()
+void blockchain::isChainValid()
 {
-    if(block_1.getHeader() == block_2.getHash())
+    if(block_1->getHeader() == block_2->getHash())
     {
-      if(block_2.getHeader() == block_3.getHash())
-        validity = true;
-      else
-        validity = false;
+      if(block_2->getHeader() == block_3->getHash())
+        chainValidity = true;
     }
     else
-      validity = false;
+      chainValidity = false;
 }

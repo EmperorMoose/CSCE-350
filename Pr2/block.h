@@ -10,17 +10,18 @@
 
 class block{
 public:
-  void block();
+  block();
   void isValid();
   bool validity;
   void setHeader(std::string header);
   void setMerkle(std::string merkle);
-  void setNonce(std::string);
-  void getHeader();
-  void getHash();
+  void setNonce(std::string nonce);
+  std::string getHeader();
+  std::string getHash();
   void generateHash();
   std::string hexToString(std::string str);
   int hexCharToInt(char a);
+  void printBlock();
 private:
   std::string header;
   std::string merkle;

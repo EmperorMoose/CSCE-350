@@ -8,13 +8,13 @@
 #include <iostream>
 #include <algorithm>
 //This is the function file for the block class
-void block::block()
+block::block()
 {
   generateHash();
   isValid();
 }
 //This is a function from test.cpp
-int hexCharToInt(char a){
+int block::hexCharToInt(char a){
     if(a>='0' && a<='9')
         return(a-48);
     else if(a>='A' && a<='Z')
@@ -24,7 +24,7 @@ int hexCharToInt(char a){
 }
 
 //Function from test.cpp
-std::string hexToString(std::string str){
+std::string block::hexToString(std::string str){
     std::stringstream HexString;
     for(int i=0;i<str.length();i++){
         char a = str.at(i++);
@@ -50,19 +50,19 @@ void block::isValid()
 }
 
 //Setters
-void block::setHeader(std::string header)
+void block::setHeader(std::string x)
 {
-  header = header;
+  header = x;
 }
 
-void block::setMerkle(std::string merkle)
+void block::setMerkle(std::string y)
 {
-  merkle = merkle;
+  merkle = y;
 }
 
-void block::setNonce(std::string nonce)
+void block::setNonce(std::string z)
 {
-  nonce = nonce;
+  nonce = z;
 }
 
 std::string block::getHeader()
@@ -70,13 +70,20 @@ std::string block::getHeader()
   return header;
 }
 //Generates the hash value for this blockchain
-void blockchain::generateHash()
+void block::generateHash()
 {
-  std::concat = header + merkle + nonce;
-  hash = hash256_hex_string(hexToString(concat));
+  std::string concat = header + merkle + nonce;
+  hash = picosha2::hash256_hex_string(hexToString(concat));
 }
 
 std::string block::getHash()
 {
   return hash;
+}
+
+void block::printBlock()
+{
+  std::cout << block::header << " ";
+  std::cout << merkle << " ";
+  std::cout << nonce << "\n";
 }

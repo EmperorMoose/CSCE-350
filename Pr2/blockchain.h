@@ -1,4 +1,4 @@
-#include "block.h"
+//#include "block.h"
 #include "picosha2.h"
 #include <iostream>
 #include <string>
@@ -10,11 +10,11 @@
 
 class blockchain{
 public:
-  void blockchain();
-  void isValid();
-  bool validity;
-private:
-  block::block block_1;
-  block::block block_2;
-  block::block block_3;
-}
+  blockchain();
+  blockchain(block &block_1, block &block_2, block &block_3);
+  void isChainValid();
+  bool chainValidity;
+  block * block_1;
+  block * block_2;
+  block * block_3;
+};
